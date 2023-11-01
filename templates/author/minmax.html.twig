@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+   border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+</head>
+<body>
+<form method="post" action="{{ path('minmax') }}">
+    <label for="min">Minimum Number of Books:</label>
+    <input type="number" name="min" id="min" />
+
+    <label for="max">Maximum Number of Books:</label>
+    <input type="number" name="max" id="max" />
+
+    <button type="submit">Search</button>
+</form>
+<h1>Liste authors</h1>
+<table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Number of books</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+<tbody>
+{% for i in response  %}
+<tr>
+					
+					<td>{{i.username}}</td></br>
+                    <td>{{i.email}}</td></br>
+                    <td>{{i.NbBooks}}</td></br>
+                    <td><a href="{{ path('remove', {'id':i.id}) }}" class="button">delete</a>
+                        <a href="{{ path('update' , {'id':i.id}) }}" class="button">edit</a>		
+                    </td>	
+
+</tr>
+
+{%endfor%}
+<a href="{{ path('add2') }}" class="button">add</a>
+</tbody>
+</table>
+</body>
+</html>

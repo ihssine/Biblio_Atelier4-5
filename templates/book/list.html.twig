@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<form method="post" action="{{ path('searchbook') }}">
+    <label for="id">ref :</label>
+    <input type="text" name="id" id="id">
+    <button type="submit">Search</button>
+</form>
+    <h1>List of Books</h1>
+
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>PublicationDate</th>
+                    <th>Published</th>
+                    <th>Author</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in response %}
+                    <tr>
+                        <td>{{ i.title }}</td>
+                        <td>{{ i.category }}</td>
+                        <td>{{ i.publicationDate|date('Y-m-d') }}</td>
+                        <td>{{ i.published }}</td>
+                        <td>{{ i.author.username }}</td>
+                        <td><a href="{{ path('updateB' , {'id':i.id}) }}" class="button">edit</a>
+                            <a href="{{ path('removeB', {'id':i.id}) }}" class="button">delete</a>
+                            <a href="{{ path('showB', {'id':i.id}) }}" class="button">show</a>
+                         </td>   
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+
+    <h1>Liste des livres publiés</h1>
+
+    {% if totalPublishedBooks < 0 %}
+        <p>No Books found</p>
+    {% endif %}
+    <p> Number of published Books : {{ totalPublishedBooks }}</p>
+    <p> Number of unpublished Books : {{ totalUnpublishedBooks }}</p>
+</body>
+</html>
